@@ -2,30 +2,42 @@
 
 Static site rebuild for https://nonessentials.band with:
 - markdown-driven section copy
-- editable gig dates in YAML
+- Google-Sheet-driven gig dates
 - automatic countdown to the next show
+- automatic hiding of past shows
 - Netlify Forms for booking + mailing list signup
 - archived original artwork/assets from the Carrd site under `source_assets/`
 
 ## Edit the site
 
 ### Update gig dates
-Edit `content/gigs.yml`.
+The live source of truth is the shared Google Sheet:
+- https://docs.google.com/spreadsheets/d/1KYcKwEkCV7JuKfYYFp-DBJtELqQ5N1MOWY3o61t4p5A/edit?usp=sharing
 
-Each show looks like this:
-
-```yml
-- starts_at: 2026-04-11T21:00:00-04:00
-  display_date: Apr 11th, Saturday, 9pm–12 midnight
-  venue: Tommy Fox's
-  address: 32 S. Washington Ave, Bergenfield, NJ
-  notes: Classic rock all night.
-```
+Required columns:
+- `status`
+- `starts_at`
+- `display_date`
+- `venue`
+- `address`
+- `notes`
+- `ticket_url`
 
 Rules:
-- `starts_at` must be a real ISO date/time with timezone offset.
-- `display_date` is what visitors see.
-- The countdown automatically finds the nearest upcoming show.
+- `status` should be `live` for shows you want visible
+- `starts_at` must be a real ISO date/time with timezone offset, for example:
+  `2026-04-11T21:00:00-04:00`
+- `display_date` is what visitors see
+- past shows disappear automatically once `starts_at` passes
+- the earliest upcoming show automatically becomes:
+  - the hero next-show card
+  - the “Next show” callout
+  - the countdown target
+
+If you want to seed the sheet with the old hardcoded shows, use:
+- `content/shows-import-seed.csv`
+
+That file is regenerated automatically from the fallback YAML during build.
 
 ### Update section copy
 - `content/about.md`

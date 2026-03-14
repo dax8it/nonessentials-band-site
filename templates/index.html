@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles.css">
   </head>
-  <body data-next-show="{{next_show_iso}}">
+  <body data-next-show="{{next_show_iso}}" data-shows-csv="{{shows_csv_url}}">
     <header class="site-header">
       <div class="header-inner">
         <div class="brand">{{site_title}}</div>
@@ -45,8 +45,8 @@
         </div>
         <aside class="hero-card">
           <div class="section-tag">Next up</div>
-          <h3>{{next_show_venue}}</h3>
-          <p><strong>{{next_show_display}}</strong><br>{{next_show_address}}</p>
+          <h3 data-next-show-venue>{{next_show_venue}}</h3>
+          <p><strong data-next-show-display>{{next_show_display}}</strong><br><span data-next-show-address>{{next_show_address}}</span></p>
           <div class="show-highlight">
             <div class="kicker" data-countdown-status>Counting down to the next gig</div>
             <div class="stats">
@@ -100,9 +100,9 @@
           <p>Come join us for some lively music, good atmosphere, and a properly loud night out.</p>
           <div class="show-highlight">
             <div class="kicker">Next show</div>
-            <p><strong>{{next_show_display}}</strong><br>{{next_show_venue}}<br>{{next_show_address}}</p>
+            <p><strong data-next-show-display>{{next_show_display}}</strong><br><span data-next-show-venue>{{next_show_venue}}</span><br><span data-next-show-address>{{next_show_address}}</span></p>
           </div>
-          <p class="small-note">Update dates in <code>content/gigs.yml</code>. The countdown always points to the next upcoming show automatically.</p>
+          <p class="small-note">This section is powered by the shared Google Sheet. Add a new row there, and past shows disappear automatically after the date passes.</p>
         </article>
         <article class="panel schedule-table-wrap">
           <table class="schedule-table">
@@ -113,7 +113,7 @@
                 <th>Address</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody data-shows-table-body>
               {{schedule_rows}}
             </tbody>
           </table>

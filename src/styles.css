@@ -410,6 +410,22 @@ h1 {
   color: var(--text);
 }
 
+.show-notes {
+  margin-top: 0.35rem;
+  color: var(--muted);
+}
+
+.show-ticket {
+  margin-top: 0.55rem;
+}
+
+.show-ticket a {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+}
+
 .members-grid {
   margin-top: 2rem;
   display: grid;

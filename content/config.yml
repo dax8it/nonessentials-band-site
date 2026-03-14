@@ -26,6 +26,10 @@ hero:
 about_section:
   background_image: assets/images/container08.jpg
 
+shows:
+  sheet_url: https://docs.google.com/spreadsheets/d/1KYcKwEkCV7JuKfYYFp-DBJtELqQ5N1MOWY3o61t4p5A/edit?usp=sharing
+  sheet_gid: 0
+
 socials:
   - label: Instagram
     href: https://instagram.com/the_nonessentials_live

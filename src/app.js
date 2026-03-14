@@ -1,3 +1,102 @@
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        cell += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === ',' && !inQuotes) {
+      row.push(cell);
+      cell = '';
+      continue;
+    }
+
+    if ((char === '\n' || char === '\r') && !inQuotes) {
+      if (char === '\r' && next === '\n') i += 1;
+      row.push(cell);
+      if (row.some((value) => value.trim() !== '')) rows.push(row);
+      row = [];
+      cell = '';
+      continue;
+    }
+
+    cell += char;
+  }
+
+  if (cell.length || row.length) {
+    row.push(cell);
+    if (row.some((value) => value.trim() !== '')) rows.push(row);
+  }
+
+  return rows;
+}
+
+function normalizeKey(value) {
+  return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_');
+}
+
+function rowsToObjects(rows) {
+  if (!rows.length) return [];
+  const headers = rows[0].map(normalizeKey);
+  return rows.slice(1).map((values) => {
+    const entry = {};
+    headers.forEach((header, index) => {
+      entry[header] = String(values[index] || '').trim();
+    });
+    return entry;
+  });
+}
+
+function parseShowDate(value) {
+  if (!value) return null;
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return parsed;
+}
+
+function isLiveStatus(value) {
+  const status = String(value || '').trim().toLowerCase();
+  return status === '' || status === 'live' || status === 'active' || status === 'upcoming';
+}
+
+function normalizeShow(row) {
+  const startsAt = row.starts_at || row.start_at || row.date || row.datetime;
+  const parsedDate = parseShowDate(startsAt);
+  if (!parsedDate) return null;
+  if (!isLiveStatus(row.status)) return null;
+
+  return {
+    startsAt: parsedDate,
+    startsAtIso: parsedDate.toISOString(),
+    displayDate: row.display_date || row.display || row.date_text || parsedDate.toLocaleString(),
+    venue: row.venue || row.location || 'Venue TBA',
+    address: row.address || row.city || 'Address TBA',
+    notes: row.notes || '',
+    ticketUrl: row.ticket_url || row.tickets || row.link || '',
+  };
+}
+
+function filterUpcomingShows(shows) {
+  const now = Date.now();
+  return shows
+    .filter(Boolean)
+    .filter((show) => show.startsAt.getTime() >= now)
+    .sort((a, b) => a.startsAt.getTime() - b.startsAt.getTime());
+}
+
 function formatCountdown(targetIso) {
   const target = new Date(targetIso).getTime();
   if (Number.isNaN(target)) return null;
@@ -29,15 +128,101 @@ function updateCountdown() {
   };
 
   Object.entries(map).forEach(([key, value]) => {
-    const el = document.querySelector(`[data-count="${key}"]`);
-    if (el) el.textContent = pad(value);
+    document.querySelectorAll(`[data-count="${key}"]`).forEach((el) => {
+      el.textContent = pad(value);
+    });
   });
 
-  const label = document.querySelector('[data-countdown-status]');
-  if (label) {
+  document.querySelectorAll('[data-countdown-status]').forEach((label) => {
     label.textContent = values.isPast ? 'Showtime.' : 'Counting down to the next gig';
+  });
+}
+
+function updateTextTargets(selector, value) {
+  document.querySelectorAll(selector).forEach((el) => {
+    el.textContent = value;
+  });
+}
+
+function renderShowsTable(shows) {
+  const tbody = document.querySelector('[data-shows-table-body]');
+  if (!tbody) return;
+
+  if (!shows.length) {
+    tbody.innerHTML = '<tr><td colspan="3">No upcoming shows right now. Check back soon.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = shows.map((show) => {
+    const notes = show.notes ? `<div class="show-notes">${escapeHtml(show.notes)}</div>` : '';
+    const ticket = show.ticketUrl ? `<div class="show-ticket"><a href="${escapeAttribute(show.ticketUrl)}" target="_blank" rel="noreferrer">Tickets / Info</a></div>` : '';
+    return `
+      <tr>
+        <td><strong>${escapeHtml(show.displayDate)}</strong>${notes}${ticket}</td>
+        <td>${escapeHtml(show.venue)}</td>
+        <td>${escapeHtml(show.address)}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+function applyNextShow(show, allUpcomingShows) {
+  if (!show) {
+    updateTextTargets('[data-next-show-venue]', 'No upcoming show booked yet');
+    updateTextTargets('[data-next-show-display]', 'Dates coming soon');
+    updateTextTargets('[data-next-show-address]', 'Check back for the next announcement.');
+    renderShowsTable([]);
+    return;
+  }
+
+  document.body.dataset.nextShow = show.startsAtIso;
+  updateTextTargets('[data-next-show-venue]', show.venue);
+  updateTextTargets('[data-next-show-display]', show.displayDate);
+  updateTextTargets('[data-next-show-address]', show.address);
+  renderShowsTable(allUpcomingShows);
+  updateCountdown();
+}
+
+async function loadShowsFromSheet() {
+  const csvUrl = document.body.dataset.showsCsv;
+  if (!csvUrl) return;
+
+  try {
+    const response = await fetch(csvUrl, { mode: 'cors' });
+    if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
+    const text = await response.text();
+    const rows = rowsToObjects(parseCsv(text));
+    if (!rows.length) {
+      return;
+    }
+    const normalizedShows = rows.map(normalizeShow).filter(Boolean);
+    const shows = filterUpcomingShows(normalizedShows);
+    if (!normalizedShows.length) {
+      return;
+    }
+    if (!shows.length) {
+      applyNextShow(null, []);
+      return;
+    }
+    applyNextShow(shows[0], shows);
+  } catch (error) {
+    console.warn('Could not load shows from Google Sheet; keeping fallback content.', error);
   }
 }
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+loadShowsFromSheet();

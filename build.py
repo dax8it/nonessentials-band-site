@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import csv
 import html
+import re
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -111,10 +113,41 @@ def choose_next_show(gigs):
     return parsed[-1][1]
 
 
+def google_sheet_csv_url(sheet_url: str, gid: int | str = 0) -> str:
+    match = re.search(r"/d/([a-zA-Z0-9-_]+)", sheet_url)
+    if not match:
+        raise ValueError("Invalid Google Sheet URL")
+    sheet_id = match.group(1)
+    return f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}"
+
+
+def write_import_seed_csv(gigs):
+    output_path = ROOT / "content" / "shows-import-seed.csv"
+    fieldnames = ["status", "starts_at", "display_date", "venue", "address", "notes", "ticket_url"]
+    with output_path.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for show in gigs:
+            writer.writerow(
+                {
+                    "status": "live",
+                    "starts_at": parse_starts_at(show["starts_at"]).isoformat(),
+                    "display_date": show["display_date"],
+                    "venue": show["venue"],
+                    "address": show["address"],
+                    "notes": show.get("notes", ""),
+                    "ticket_url": show.get("ticket_url", ""),
+                }
+            )
+
+
+
 def main():
     config = load_yaml(CONTENT / "config.yml")
     gigs = load_yaml(CONTENT / "gigs.yml")["shows"]
     next_show = choose_next_show(gigs)
+    shows_csv_url = google_sheet_csv_url(config["shows"]["sheet_url"], config["shows"].get("sheet_gid", 0))
+    write_import_seed_csv(gigs)
 
     clean_dist()
 
@@ -153,6 +186,7 @@ def main():
         "about_background": config["about_section"]["background_image"],
         "videos_background": config["videos"]["background_image"],
         "social_links": social_links(config["socials"]),
+        "shows_csv_url": shows_csv_url,
         "next_show_iso": parse_starts_at(next_show["starts_at"]).isoformat(),
         "next_show_display": next_show["display_date"],
         "next_show_venue": next_show["venue"],
