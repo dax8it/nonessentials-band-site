@@ -21,7 +21,10 @@ hero:
   cta_secondary:
     label: Book the band
     href: "#contact"
-  background_image: assets/images/container03.jpg
+  background_image: assets/images/container09.jpg
+
+about_section:
+  background_image: assets/images/container08.jpg
 
 socials:
   - label: Instagram
@@ -47,6 +50,7 @@ mailing_list:
 videos:
   heading: Live Clips
   intro: A few proof-of-life clips from the band in the wild. More on YouTube if you want the full rabbit hole.
+  background_image: assets/images/container08.jpg
   channel_url: https://www.youtube.com/@Nonessentialsband
   cta_label: Watch more on YouTube
   featured:
@@ -86,6 +90,8 @@ archive_assets:
   - assets/images/container05.jpg
   - assets/images/container06.jpg
   - assets/images/container07.jpg
+  - assets/images/container08.jpg
+  - assets/images/container09.jpg
   - assets/images/gallery01/289a5fc5.jpg
   - assets/images/gallery01/608892e0.jpg
   - assets/images/gallery01/84c32bc7.jpg
