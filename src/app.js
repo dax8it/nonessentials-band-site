@@ -234,6 +234,27 @@ function applyNextShow(show, allUpcomingShows, pastShows = []) {
   updateCountdown();
 }
 
+function setupArchiveToggle() {
+  const button = document.querySelector('[data-archive-toggle]');
+  const panel = document.querySelector('[data-past-shows-archive]');
+  const icon = document.querySelector('.archive-toggle-icon');
+  if (!button || !panel) return;
+
+  const sync = () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    panel.classList.toggle('is-hidden', !expanded);
+    if (icon) icon.textContent = expanded ? '−' : '+';
+  };
+
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    sync();
+  });
+
+  sync();
+}
+
 async function loadShowsFromSheet() {
   const csvUrl = document.body.dataset.showsCsv;
   if (!csvUrl) return;
@@ -261,6 +282,7 @@ async function loadShowsFromSheet() {
   }
 }
 
+setupArchiveToggle();
 updateCountdown();
 setInterval(updateCountdown, 1000);
 loadShowsFromSheet();

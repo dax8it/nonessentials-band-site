@@ -447,9 +447,50 @@ h1 {
   margin-top: 1.5rem;
 }
 
-.archive-panel h3 {
+.archive-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.archive-tag {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.archive-title {
+  display: block;
+  font-family: "Bai Jamjuree", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   font-size: 1.4rem;
-  margin-bottom: 0.65rem;
+}
+
+.archive-note {
+  display: block;
+  margin-top: 0.45rem;
+}
+
+.archive-toggle-icon {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-size: 1.35rem;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .archive-list {

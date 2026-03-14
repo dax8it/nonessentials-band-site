@@ -127,10 +127,15 @@
       </div>
       <div class="section-inner archive-layout">
         <article class="panel archive-panel">
-          <div class="section-tag">Past shows</div>
-          <h3>Past Shows Archive</h3>
-          <p class="small-note">Older gigs move here automatically once the date passes.</p>
-          <div class="archive-list" data-past-shows-archive>
+          <button class="archive-toggle" type="button" aria-expanded="false" data-archive-toggle>
+            <span>
+              <span class="section-tag archive-tag">Past shows</span>
+              <span class="archive-title">Past Shows Archive</span>
+              <span class="small-note archive-note">Older gigs move here automatically once the date passes.</span>
+            </span>
+            <span class="archive-toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="archive-list is-hidden" data-past-shows-archive>
             <p class="small-note">Archive will populate automatically when show dates pass.</p>
           </div>
         </article>
