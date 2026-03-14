@@ -44,6 +44,20 @@ mailing_list:
   heading: Mailing List
   intro: Sign up for our mailing list so we can let you know what shows we're playing, plus occasional giveaways and announcements.
 
+videos:
+  heading: Live Clips
+  intro: A few proof-of-life clips from the band in the wild. More on YouTube if you want the full rabbit hole.
+  channel_url: https://www.youtube.com/@Nonessentialsband
+  cta_label: Watch more on YouTube
+  featured:
+    title: Featured live clip
+    embed_url: https://www.youtube.com/embed/Dvj-LNjHRxs
+  supporting:
+    - title: Live clip 02
+      embed_url: https://www.youtube.com/embed/dTjReD7-z2E
+    - title: Live clip 03
+      embed_url: https://www.youtube.com/embed/idYAQrsT9VM
+
 band:
   heading: The Band
   intro: "Five seasoned players, one mission: keep the room singing until last call."

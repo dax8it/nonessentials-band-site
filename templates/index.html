@@ -71,6 +71,25 @@
       </div>
     </section>
 
+    <section class="section" id="videos">
+      <div class="section-inner videos-layout">
+        <article class="panel video-panel video-panel-featured">
+          <div class="section-tag">{{videos_heading}}</div>
+          <h2>{{videos_heading}}</h2>
+          <p>{{videos_intro}}</p>
+          <div class="video-frame video-frame-featured">
+            <iframe src="{{featured_video_embed}}" title="{{featured_video_title}}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="hero-actions">
+            <a class="button" href="{{videos_channel_url}}" target="_blank" rel="noreferrer">{{videos_cta_label}}</a>
+          </div>
+        </article>
+        <div class="supporting-videos">
+          {{supporting_video_cards}}
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="shows">
       <div class="section-inner grid-2">
         <article class="panel">

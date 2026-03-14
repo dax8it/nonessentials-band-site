@@ -71,6 +71,20 @@ def clean_dist():
     (DIST / "assets" / "images" / "gallery01").mkdir(parents=True, exist_ok=True)
 
 
+def supporting_video_cards(items):
+    cards = []
+    for item in items:
+        cards.append(
+            f'''<article class="panel video-panel">
+  <h3>{html.escape(item['title'])}</h3>
+  <div class="video-frame">
+    <iframe src="{html.escape(item['embed_url'])}" title="{html.escape(item['title'])}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+</article>'''
+        )
+    return "\n".join(cards)
+
+
 def copy_asset(rel_path: str):
     src = ARCHIVE / rel_path
     dest = DIST / rel_path
@@ -143,6 +157,13 @@ def main():
         "repertoire_html": render_md(CONTENT / "repertoire.md"),
         "songs_html": render_md(CONTENT / "song-list.md"),
         "mailing_html": render_md(CONTENT / "mailing-list.md"),
+        "videos_heading": config["videos"]["heading"],
+        "videos_intro": config["videos"]["intro"],
+        "videos_channel_url": config["videos"]["channel_url"],
+        "videos_cta_label": config["videos"]["cta_label"],
+        "featured_video_title": config["videos"]["featured"]["title"],
+        "featured_video_embed": config["videos"]["featured"]["embed_url"],
+        "supporting_video_cards": supporting_video_cards(config["videos"]["supporting"]),
         "schedule_rows": schedule_rows(gigs),
         "band_heading": config["band"]["heading"],
         "band_intro": config["band"]["intro"],

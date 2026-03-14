@@ -222,6 +222,42 @@ h1 {
   padding: 5rem 0;
 }
 
+.videos-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 1.5rem;
+}
+
+.supporting-videos {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.video-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.video-frame {
+  margin-top: 1rem;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: var(--shadow);
+}
+
+.video-frame iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.video-frame-featured iframe {
+  min-height: 420px;
+}
+
 .section.with-image {
   overflow: hidden;
 }
@@ -448,7 +484,8 @@ textarea {
   .hero-content,
   .grid-2,
   .forms-grid,
-  .members-grid {
+  .members-grid,
+  .videos-layout {
     grid-template-columns: 1fr;
   }
 
