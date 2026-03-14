@@ -170,6 +170,10 @@ h1 {
   gap: 1rem;
 }
 
+.hero-actions-tight {
+  margin-top: 1rem;
+}
+
 .button,
 .button-secondary {
   border-radius: 999px;
@@ -201,6 +205,10 @@ h1 {
 .button-secondary:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+}
+
+.is-hidden {
+  display: none;
 }
 
 .hero-card,
@@ -424,6 +432,48 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.76rem;
+}
+
+.show-cta-row {
+  margin-top: 0.85rem;
+}
+
+.show-cta-row .button-secondary {
+  padding: 0.78rem 1.1rem;
+  font-size: 0.74rem;
+}
+
+.archive-layout {
+  margin-top: 1.5rem;
+}
+
+.archive-panel h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.archive-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.archive-item {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.03);
+}
+
+.archive-item strong {
+  color: var(--text);
+}
+
+.archive-meta {
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .members-grid {

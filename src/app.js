@@ -89,12 +89,16 @@ function normalizeShow(row) {
   };
 }
 
-function filterUpcomingShows(shows) {
+function splitShowsByTime(shows) {
   const now = Date.now();
-  return shows
+  const sorted = shows
     .filter(Boolean)
-    .filter((show) => show.startsAt.getTime() >= now)
     .sort((a, b) => a.startsAt.getTime() - b.startsAt.getTime());
+
+  return {
+    upcoming: sorted.filter((show) => show.startsAt.getTime() >= now),
+    past: sorted.filter((show) => show.startsAt.getTime() < now).reverse(),
+  };
 }
 
 function formatCountdown(targetIso) {
@@ -166,6 +170,24 @@ function renderShowsTable(shows) {
   }).join('');
 }
 
+function renderPastShows(shows) {
+  const container = document.querySelector('[data-past-shows-archive]');
+  if (!container) return;
+
+  if (!shows.length) {
+    container.innerHTML = '<p class="small-note">No past shows archived yet.</p>';
+    return;
+  }
+
+  container.innerHTML = shows.map((show) => `
+    <article class="archive-item">
+      <strong>${escapeHtml(show.displayDate)}</strong>
+      <div class="archive-meta">${escapeHtml(show.venue)}</div>
+      <div class="archive-meta">${escapeHtml(show.address)}</div>
+    </article>
+  `).join('');
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -179,12 +201,26 @@ function escapeAttribute(value) {
   return escapeHtml(value);
 }
 
-function applyNextShow(show, allUpcomingShows) {
+function syncTicketButtons(ticketUrl) {
+  document.querySelectorAll('[data-next-show-ticket]').forEach((link) => {
+    if (ticketUrl) {
+      link.href = ticketUrl;
+      link.classList.remove('is-hidden');
+    } else {
+      link.href = '#';
+      link.classList.add('is-hidden');
+    }
+  });
+}
+
+function applyNextShow(show, allUpcomingShows, pastShows = []) {
   if (!show) {
     updateTextTargets('[data-next-show-venue]', 'No upcoming show booked yet');
     updateTextTargets('[data-next-show-display]', 'Dates coming soon');
     updateTextTargets('[data-next-show-address]', 'Check back for the next announcement.');
+    syncTicketButtons('');
     renderShowsTable([]);
+    renderPastShows(pastShows);
     return;
   }
 
@@ -192,7 +228,9 @@ function applyNextShow(show, allUpcomingShows) {
   updateTextTargets('[data-next-show-venue]', show.venue);
   updateTextTargets('[data-next-show-display]', show.displayDate);
   updateTextTargets('[data-next-show-address]', show.address);
+  syncTicketButtons(show.ticketUrl);
   renderShowsTable(allUpcomingShows);
+  renderPastShows(pastShows);
   updateCountdown();
 }
 
@@ -209,15 +247,15 @@ async function loadShowsFromSheet() {
       return;
     }
     const normalizedShows = rows.map(normalizeShow).filter(Boolean);
-    const shows = filterUpcomingShows(normalizedShows);
     if (!normalizedShows.length) {
       return;
     }
-    if (!shows.length) {
-      applyNextShow(null, []);
+    const { upcoming, past } = splitShowsByTime(normalizedShows);
+    if (!upcoming.length) {
+      applyNextShow(null, [], past);
       return;
     }
-    applyNextShow(shows[0], shows);
+    applyNextShow(upcoming[0], upcoming, past);
   } catch (error) {
     console.warn('Could not load shows from Google Sheet; keeping fallback content.', error);
   }

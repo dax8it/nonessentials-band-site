@@ -39,6 +39,9 @@ If you want to seed the sheet with the old hardcoded shows, use:
 
 That file is regenerated automatically from the fallback YAML during build.
 
+Nontechnical editing guide:
+- `SHEET-EDITING-GUIDE.md`
+
 ### Update section copy
 - `content/about.md`
 - `content/repertoire.md`
