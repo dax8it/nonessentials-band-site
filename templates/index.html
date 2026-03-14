@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{site_title}}</title>
+    <meta name="description" content="{{site_description}}">
+    <meta property="og:title" content="{{site_title}}">
+    <meta property="og:description" content="{{site_description}}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{site_url}}">
+    <meta property="og:image" content="{{site_url}}/{{og_image}}">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body data-next-show="{{next_show_iso}}">
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">{{site_title}}</div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#shows">Shows</a>
+          <a href="#band">Band</a>
+          <a href="#songs">Song List</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <div class="social-links">{{social_links}}</div>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-media" style="background-image: url('{{hero_background}}');"></div>
+      <div class="hero-content">
+        <div>
+          <div class="eyebrow">{{hero_eyebrow}}</div>
+          <h1>{{hero_title}}</h1>
+          <p class="hero-copy">{{hero_intro}}</p>
+          <div class="hero-actions">
+            <a class="button" href="{{hero_cta_primary_href}}">{{hero_cta_primary_label}}</a>
+            <a class="button-secondary" href="{{hero_cta_secondary_href}}">{{hero_cta_secondary_label}}</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <div class="section-tag">Next up</div>
+          <h3>{{next_show_venue}}</h3>
+          <p><strong>{{next_show_display}}</strong><br>{{next_show_address}}</p>
+          <div class="show-highlight">
+            <div class="kicker" data-countdown-status>Counting down to the next gig</div>
+            <div class="stats">
+              <div class="stat"><div class="stat-value" data-count="days">00</div><div class="stat-label">Days</div></div>
+              <div class="stat"><div class="stat-value" data-count="hours">00</div><div class="stat-label">Hours</div></div>
+              <div class="stat"><div class="stat-value" data-count="minutes">00</div><div class="stat-label">Minutes</div></div>
+              <div class="stat"><div class="stat-value" data-count="seconds">00</div><div class="stat-label">Seconds</div></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-inner grid-2">
+        <article class="panel">
+          {{about_html}}
+        </article>
+        <article class="panel">
+          {{repertoire_html}}
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="shows">
+      <div class="section-inner grid-2">
+        <article class="panel">
+          <div class="section-tag">Upcoming shows</div>
+          <h2>Upcoming Shows</h2>
+          <p>Come join us for some lively music, good atmosphere, and a properly loud night out.</p>
+          <div class="show-highlight">
+            <div class="kicker">Next show</div>
+            <p><strong>{{next_show_display}}</strong><br>{{next_show_venue}}<br>{{next_show_address}}</p>
+          </div>
+          <p class="small-note">Update dates in <code>content/gigs.yml</code>. The countdown always points to the next upcoming show automatically.</p>
+        </article>
+        <article class="panel schedule-table-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Date / Time</th>
+                <th>Venue</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{schedule_rows}}
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="section with-image" id="band">
+      <div class="section-media" style="background-image: url('{{band_background}}');"></div>
+      <div class="section-inner">
+        <article class="panel">
+          <div class="section-tag">{{band_heading}}</div>
+          <h2>{{band_heading}}</h2>
+          <p>{{band_intro}}</p>
+          <div class="members-grid">
+            {{member_cards}}
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section with-image" id="songs">
+      <div class="section-media" style="background-image: url('assets/images/container05.jpg');"></div>
+      <div class="section-inner">
+        <article class="song-list-panel">
+          {{songs_html}}
+        </article>
+      </div>
+    </section>
+
+    <section class="section with-image" id="contact">
+      <div class="section-media" style="background-image: url('{{contact_background}}');"></div>
+      <div class="section-inner forms-grid">
+        <article class="form-panel">
+          <div class="section-tag">{{contact_heading}}</div>
+          <h2>{{contact_heading}}</h2>
+          <p>{{contact_intro}}</p>
+          <p><strong>Email:</strong> <a href="mailto:{{contact_email}}">{{contact_email}}</a><br>{{contact_booking_note}}</p>
+
+          <form name="booking" method="POST" data-netlify="true" netlify-honeypot="company">
+            <input type="hidden" name="form-name" value="booking">
+            <p hidden><label>Don’t fill this out <input name="company"></label></p>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" name="email" required>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button class="button" type="submit">Send booking request</button>
+          </form>
+        </article>
+
+        <article class="form-panel">
+          {{mailing_html}}
+          <form name="mailing-list" method="POST" data-netlify="true" netlify-honeypot="website">
+            <input type="hidden" name="form-name" value="mailing-list">
+            <p hidden><label>Don’t fill this out <input name="website"></label></p>
+            <div class="field">
+              <label for="mailing-email">Email</label>
+              <input id="mailing-email" type="email" name="email" required>
+            </div>
+            <label class="checkbox-row" for="consent">
+              <input id="consent" type="checkbox" name="consent" required>
+              <span>I’m okay with receiving show updates and the occasional announcement.</span>
+            </label>
+            <button class="button-secondary" type="submit">Join the list</button>
+          </form>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>© {{site_title}}. Loud songs. No filler.</div>
+        <div class="social-links">{{social_links}}</div>
+      </div>
+    </footer>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>

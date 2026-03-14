@@ -1,0 +1,89 @@
+site:
+  title: The Non-Essentials
+  description: NJ/NY cover band performing rock and alternative rock hits from the 70s, 80s, 90s, and 2000s.
+  url: https://nonessentials.band
+  og_image: assets/images/card.jpg
+  accent: "#DCFF08"
+  background: "#302D2A"
+  text: "#FFFFFF"
+
+hero:
+  eyebrow: Northern New Jersey cover band
+  title: Classic Rock-n-Roll
+  intro: >-
+    Rocking the NJ area with a blend of iconic tunes from the 70s, 80s, 90s,
+    and 00s, The Non-Essentials have been igniting stages since 2020. Seasoned
+    musicians, zero gimmicks, just a loud, tight, high-energy set built for bars,
+    parties, clubs, and private events.
+  cta_primary:
+    label: See upcoming shows
+    href: "#shows"
+  cta_secondary:
+    label: Book the band
+    href: "#contact"
+  background_image: assets/images/container03.jpg
+
+socials:
+  - label: Instagram
+    href: https://instagram.com/the_nonessentials_live
+  - label: Facebook
+    href: https://www.facebook.com/thenonessentialslive
+  - label: X
+    href: https://twitter.com/NonEssentialsNJ
+  - label: Email
+    href: mailto:Pvcampanelli@aol.com
+
+contact:
+  heading: Contact Us
+  intro: We're loaded and ready to perform a great show for you. Reach out and let us know the details.
+  email: Pvcampanelli@aol.com
+  booking_note: Available for bars, private parties, festivals, and corporate events across the tristate area.
+  background_image: assets/images/container06.jpg
+
+mailing_list:
+  heading: Mailing List
+  intro: Sign up for our mailing list so we can let you know what shows we're playing, plus occasional giveaways and announcements.
+
+band:
+  heading: The Band
+  intro: "Five seasoned players, one mission: keep the room singing until last call."
+  background_image: assets/images/container07.jpg
+  members:
+    - name: Nathalie
+      role: Vocals
+      image: assets/images/gallery01/289a5fc5.jpg
+    - name: George
+      role: Vocals & Bass
+      image: assets/images/gallery01/608892e0.jpg
+    - name: Tom
+      role: Drummer / Vocals
+      image: assets/images/gallery01/84c32bc7.jpg
+    - name: Don
+      role: Rhythm Guitar
+      image: assets/images/gallery01/b4bc9af0.jpg
+    - name: Paul
+      role: Lead Guitar / Vocals
+      image: assets/images/gallery01/282ab833.jpg
+
+archive_assets:
+  - assets/images/card.jpg
+  - assets/images/container01.jpg
+  - assets/images/container03.jpg
+  - assets/images/container05.jpg
+  - assets/images/container06.jpg
+  - assets/images/container07.jpg
+  - assets/images/gallery01/289a5fc5.jpg
+  - assets/images/gallery01/608892e0.jpg
+  - assets/images/gallery01/84c32bc7.jpg
+  - assets/images/gallery01/b4bc9af0.jpg
+  - assets/images/gallery01/282ab833.jpg
+  - assets/videos/video01.mp4
+  - assets/videos/video01_poster.jpg
+  - assets/videos/video02.mp4
+  - assets/videos/video02_poster.jpg
+  - assets/videos/video03.mp4
+  - assets/videos/video03_poster.jpg
+  - assets/videos/video04.mp4
+  - assets/videos/video04_poster.jpg
+  - assets/videos/video05.mp4
+  - assets/videos/video05_poster.jpg
