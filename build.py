@@ -187,6 +187,7 @@ def main():
         "videos_background": config["videos"]["background_image"],
         "social_links": social_links(config["socials"]),
         "shows_csv_url": shows_csv_url,
+        "shows_sheet_url": config["shows"]["sheet_url"],
         "next_show_iso": parse_starts_at(next_show["starts_at"]).isoformat(),
         "next_show_display": next_show["display_date"],
         "next_show_venue": next_show["venue"],
@@ -214,10 +215,16 @@ def main():
         "contact_background": config["contact"]["background_image"],
     }
 
-    template = Template((TEMPLATES / "index.html").read_text().replace("{{", "${").replace("}}", "}"))
-    output = template.safe_substitute(replacements)
-    (DIST / "index.html").write_text(output)
+    index_template = Template((TEMPLATES / "index.html").read_text().replace("{{", "${").replace("}}", "}"))
+    index_output = index_template.safe_substitute(replacements)
+    (DIST / "index.html").write_text(index_output)
+
+    update_template = Template((TEMPLATES / "update-shows.html").read_text().replace("{{", "${").replace("}}", "}"))
+    update_output = update_template.safe_substitute(replacements)
+    (DIST / "update-shows.html").write_text(update_output)
+
     print(f"Built {DIST / 'index.html'}")
+    print(f"Built {DIST / 'update-shows.html'}")
 
 
 if __name__ == "__main__":

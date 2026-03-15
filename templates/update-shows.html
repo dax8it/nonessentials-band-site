@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Shows — {{site_title}}</title>
+    <meta name="description" content="Instructions for updating show dates for {{site_title}}.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">{{site_title}} — Show Update Guide</div>
+        <nav class="nav-links">
+          <a href="/">Back to site</a>
+          <a href="{{shows_sheet_url}}" target="_blank" rel="noreferrer">Open Google Sheet</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="section with-image">
+      <div class="section-media" style="background-image: url('{{hero_background}}');"></div>
+      <div class="section-inner">
+        <article class="panel docs-panel">
+          <div class="section-tag">Nontechnical editor guide</div>
+          <h1 class="docs-title">How to update the show list</h1>
+          <p class="hero-copy">This page exists so someone can update dates without touching GitHub, Netlify, code, or YAML. The Google Sheet is the source of truth.</p>
+          <div class="hero-actions">
+            <a class="button" href="{{shows_sheet_url}}" target="_blank" rel="noreferrer">Open the Google Sheet</a>
+            <a class="button-secondary" href="/">Back to the website</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section with-image">
+      <div class="section-media" style="background-image: url('{{about_background}}');"></div>
+      <div class="section-inner grid-2">
+        <article class="panel docs-panel">
+          <h2>What to do</h2>
+          <ol class="docs-list">
+            <li>Open the <a href="{{shows_sheet_url}}" target="_blank" rel="noreferrer">Google Sheet</a>.</li>
+            <li>Go to the <strong>Shows</strong> tab.</li>
+            <li>Add one row per show.</li>
+            <li>Keep the header row exactly as-is.</li>
+            <li>Set <code>status</code> to <code>live</code> for any show that should appear on the site.</li>
+          </ol>
+        </article>
+        <article class="panel docs-panel">
+          <h2>Required columns</h2>
+          <ul class="docs-list">
+            <li><code>status</code></li>
+            <li><code>starts_at</code></li>
+            <li><code>display_date</code></li>
+            <li><code>venue</code></li>
+            <li><code>address</code></li>
+            <li><code>notes</code></li>
+            <li><code>ticket_url</code></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section with-image">
+      <div class="section-media" style="background-image: url('{{videos_background}}');"></div>
+      <div class="section-inner grid-2">
+        <article class="panel docs-panel">
+          <h2>Important rules</h2>
+          <ul class="docs-list">
+            <li>Do not rename the column headers.</li>
+            <li>Do not delete the first row.</li>
+            <li>Use one show per row.</li>
+            <li>Use a real ISO date/time in <code>starts_at</code>.</li>
+            <li>Example: <code>2026-08-15T20:00:00-04:00</code></li>
+          </ul>
+        </article>
+        <article class="panel docs-panel">
+          <h2>What happens automatically</h2>
+          <ul class="docs-list">
+            <li>The earliest upcoming show becomes the next-show card.</li>
+            <li>The countdown timer points to that same show.</li>
+            <li>Past shows disappear from the upcoming list.</li>
+            <li>Past shows move into the archive automatically.</li>
+            <li>If <code>ticket_url</code> is filled in, the site shows a Tickets / Info button.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner grid-2">
+        <article class="panel docs-panel">
+          <h2>Example row</h2>
+          <div class="docs-code">
+status: live
+starts_at: 2026-08-15T20:00:00-04:00
+display_date: Aug 15, Saturday, 8pm–11pm
+venue: Tommy Fox's
+address: 32 S. Washington Ave, Bergenfield, NJ
+notes: Classic rock all night.
+ticket_url: https://example.com/tickets
+          </div>
+        </article>
+        <article class="panel docs-panel">
+          <h2>If something looks wrong</h2>
+          <ul class="docs-list">
+            <li>Check that <code>status</code> is <code>live</code>.</li>
+            <li>Check that <code>starts_at</code> is valid.</li>
+            <li>Check that nobody renamed a column header.</li>
+            <li>Refresh the website after saving the sheet.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>Need the sheet? <a href="{{shows_sheet_url}}" target="_blank" rel="noreferrer">Open it here</a>.</div>
+        <div class="social-links">{{social_links}}</div>
+      </div>
+    </footer>
+  </body>
+</html>
