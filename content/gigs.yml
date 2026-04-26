@@ -4,16 +4,6 @@ shows:
     venue: Tommy Fox's
     address: 32 S. Washington Ave, Bergenfield, NJ
     notes: Classic rock all night.
-  - starts_at: 2026-05-16T17:00:00-04:00
-    display_date: May 16th, Saturday, 5pm–7pm
-    venue: Root's Cafe
-    address: 84 Herbert Ave, Closter, NJ
-    notes: Early evening set.
-  - starts_at: 2026-05-31T16:00:00-04:00
-    display_date: May 31st, Sunday, 4pm–7pm
-    venue: Green Pond Yacht Club
-    address: Green Pond, NJ
-    notes: Outdoor rock if weather cooperates.
   - starts_at: 2026-07-10T21:00:00-04:00
     display_date: July 10th, Friday, 9pm–12 midnight
     venue: Shortway's Barn
