@@ -1,11 +1,21 @@
 shows:
-  - starts_at: 2026-04-11T21:00:00-04:00
-    display_date: Apr 11th, Saturday, 9pm–12 midnight
+  - starts_at: 2026-08-14T20:00:00-04:00
+    display_date: Aug 14th, Friday, 8pm
+    venue: Blue Moon
+    address: 327 Franklin Ave, Wyckoff, NJ 07481
+    notes: ""
+  - starts_at: 2026-09-12T21:00:00-04:00
+    display_date: Sep 12th, Saturday, 9pm
     venue: Tommy Fox's
     address: 32 S. Washington Ave, Bergenfield, NJ
-    notes: Classic rock all night.
-  - starts_at: 2026-07-10T21:00:00-04:00
-    display_date: July 10th, Friday, 9pm–12 midnight
-    venue: Shortway's Barn
-    address: 991 Goffle Rd, Hawthorne, NJ
-    notes: Late set.
+    notes: ""
+  - starts_at: 2026-10-10T20:00:00-04:00
+    display_date: Oct 10th, Saturday, 8pm
+    venue: Hansil's
+    address: 7 Ramapo Valley Rd, Oakland, NJ 07436
+    notes: ""
+  - starts_at: 2027-02-20T21:00:00-05:00
+    display_date: Feb 20th, Saturday, 9pm
+    venue: Shortways
+    address: 991 Goffle Rd, Hawthorne, NJ 07506
+    notes: ""
